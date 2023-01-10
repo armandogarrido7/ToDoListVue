@@ -31,6 +31,7 @@ createApp({
         newTask() {
             newTask = new Task(this.taskName, this.getNewTaskIndex());
             this.taskName = '';
+            this.searchTask = '';
             this.priorityFilter = '';
             this.tasks.push(newTask);
             this.tasks.sort(this.orderTasks);
