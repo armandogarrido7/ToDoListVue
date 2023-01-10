@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <script src="https://kit.fontawesome.com/ba6470173b.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./img/bars.svg" type="image/x-icon">
+</head>
+
+<body>
+    <h1> Vue Project - Armando Garrido Rodriguez</h1>
+    <div id="to_do_list">
+        <input type="text" id="add_task" placeholder="What would you like to remember?" v-model="taskName" @keyup.enter="newTask(taskName)">
+        <input type="text" id="search" placeholder="🔎 Search Tasks..." v-model="searchTask">
+        <div>Filter by Priority
+            <select v-model="priorityFilter">
+                <option selected value="">---</option>
+                <option value="low">Low</option>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+        <hr>
+        <div id="pending_div">
+            <img src="./img/bars.svg" alt="bars"><span id="pending_tasks">{{ getPendingTasks }}</span><span id="mid">tasks pending out of a total of</span><span id="total_tasks">{{ getTotalTasks }}</span><span>|</span><span id="clear_tasks" @click="removeFinishedTasks()"><img src="./img/x.svg" alt="x"><div>Clear Done Tasks</div></span>
+        </div>
+        <hr>
+        <div id="tasks" v-for="task in searchTasks()">
+            <div class="task" :id="task.id">
+                <div class="task_head"><img v-on:click="toggleDone(task)" :src="task.done ? './img/checked.svg' : './img/not_checked.svg'" class="do_btn">
+                    <h2 :class="task.done ? 'task_done_text' : ''">{{ task.name }}</h2><img src="./img/delete.png" class="delete_task" @click="removeTask(task)"></div>
+                <div class="priority" :class="'selected_' + task.priority">Priority:
+                    <div class="low" @click="setTaskPriority(task, 'low')">Low</div>
+                    <div class=" normal" @click="setTaskPriority(task, 'normal')">Normal</div>
+                    <div class="high" @click="setTaskPriority(task, 'high')">High</div>
+                    <div class="time "><img src="./img/clock.svg ">Added {{ getTimeUntilTaskCreation(task) }} minutes ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>Developed by Armando Garrido Rodriguez<br>
+        <div id="web">Code available at
+            <a href="https://www.github.com/armandogarrido7 " target="_blank "><img src="./img/github.svg " alt="github"><span id="github">Github</span></a>
+        </div>
+    </footer>
+    <script src="vue.js "></script>
+
+</body>
+
+</html>
